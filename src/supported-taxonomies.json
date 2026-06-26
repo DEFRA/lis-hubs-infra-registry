@@ -1,0 +1,28 @@
+[
+  {
+    "id": "register",
+    "label": "Register",
+    "summary": "Capture and manage livestock registration activity."
+  },
+  {
+    "id": "move",
+    "label": "Move",
+    "summary": "Coordinate movement-related livestock journeys and traceability."
+  },
+  {
+    "id": "death",
+    "label": "Death",
+    "summary": "Capture livestock death notifications and downstream handling."
+  },
+  {
+    "id": "status",
+    "label": "Status",
+    "summary": "Surface status information and lifecycle checks for livestock.",
+    "accessMode": "hub-service"
+  },
+  {
+    "id": "home",
+    "label": "Home",
+    "summary": "Provide the default entry experience for each livestock species."
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "cattle",
+    "code": "ctt",
+    "label": "Cattle",
+    "summary": "Shared behaviour and wording for cattle journeys."
+  },
+  {
+    "id": "camlid",
+    "code": "cml",
+    "label": "Camlid",
+    "summary": "Shared behaviour and wording for camlid journeys."
+  },
+  {
+    "id": "chicken",
+    "code": "chk",
+    "label": "Chicken",
+    "summary": "Shared behaviour and wording for chicken journeys."
+  },
+  {
+    "id": "sheep",
+    "code": "shp",
+    "label": "Sheep",
+    "summary": "Shared behaviour and wording for sheep journeys."
+  },
+  {
+    "id": "goat",
+    "code": "gt",
+    "label": "Goat",
+    "summary": "Shared behaviour and wording for goat journeys."
+  }
+]

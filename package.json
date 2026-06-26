@@ -1,0 +1,10 @@
+{
+  "name": "@livestock/hub-registry",
+  "version": "0.1.0",
+  "description": "Shared hub registry metadata for the livestock platform.",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=24"
+  }
+}

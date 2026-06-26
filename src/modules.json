@@ -1,0 +1,227 @@
+[
+  {
+    "id": "register-cattle",
+    "label": "Register for Cattle",
+    "path": "/cattle/register",
+    "port": 3201,
+    "taxonomy": "register",
+    "species": "ctt",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "register-camlid",
+    "label": "Register for Camlid",
+    "path": "/camlid/register",
+    "port": 3202,
+    "taxonomy": "register",
+    "species": "cml",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "register-chicken",
+    "label": "Register for Chicken",
+    "path": "/chicken/register",
+    "port": 3203,
+    "taxonomy": "register",
+    "species": "chk",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "register-sheep",
+    "label": "Register for Sheep",
+    "path": "/sheep/register",
+    "port": 3213,
+    "taxonomy": "register",
+    "species": "shp",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "register-goat",
+    "label": "Register for Goat",
+    "path": "/goat/register",
+    "port": 3214,
+    "taxonomy": "register",
+    "species": "gt",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "move-cattle",
+    "label": "Move for Cattle",
+    "path": "/cattle/move",
+    "port": 3204,
+    "taxonomy": "move",
+    "species": "ctt",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "move-camlid",
+    "label": "Move for Camlid",
+    "path": "/camlid/move",
+    "port": 3205,
+    "taxonomy": "move",
+    "species": "cml",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "move-chicken",
+    "label": "Move for Chicken",
+    "path": "/chicken/move",
+    "port": 3206,
+    "taxonomy": "move",
+    "species": "chk",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "move-sheep",
+    "label": "Move for Sheep",
+    "path": "/sheep/move",
+    "port": 3215,
+    "taxonomy": "move",
+    "species": "shp",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "move-goat",
+    "label": "Move for Goat",
+    "path": "/goat/move",
+    "port": 3216,
+    "taxonomy": "move",
+    "species": "gt",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "death-cattle",
+    "label": "Death for Cattle",
+    "path": "/cattle/death",
+    "port": 3207,
+    "taxonomy": "death",
+    "species": "ctt",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "death-camlid",
+    "label": "Death for Camlid",
+    "path": "/camlid/death",
+    "port": 3208,
+    "taxonomy": "death",
+    "species": "cml",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "death-chicken",
+    "label": "Death for Chicken",
+    "path": "/chicken/death",
+    "port": 3209,
+    "taxonomy": "death",
+    "species": "chk",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "death-sheep",
+    "label": "Death for Sheep",
+    "path": "/sheep/death",
+    "port": 3217,
+    "taxonomy": "death",
+    "species": "shp",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "death-goat",
+    "label": "Death for Goat",
+    "path": "/goat/death",
+    "port": 3218,
+    "taxonomy": "death",
+    "species": "gt",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "status-cattle",
+    "label": "Status for Cattle",
+    "path": "/cattle/status",
+    "port": 3210,
+    "taxonomy": "status",
+    "species": "ctt",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "status-camlid",
+    "label": "Status for Camlid",
+    "path": "/camlid/status",
+    "port": 3211,
+    "taxonomy": "status",
+    "species": "cml",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "status-chicken",
+    "label": "Status for Chicken",
+    "path": "/chicken/status",
+    "port": 3212,
+    "taxonomy": "status",
+    "species": "chk",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "status-sheep",
+    "label": "Status for Sheep",
+    "path": "/sheep/status",
+    "port": 3219,
+    "taxonomy": "status",
+    "species": "shp",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "status-goat",
+    "label": "Status for Goat",
+    "path": "/goat/status",
+    "port": 3220,
+    "taxonomy": "status",
+    "species": "gt",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "home-cattle",
+    "label": "Home for Cattle",
+    "path": "/cattle/home",
+    "port": 3221,
+    "taxonomy": "home",
+    "species": "ctt",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "home-camlid",
+    "label": "Home for Camlid",
+    "path": "/camlid/home",
+    "port": 3222,
+    "taxonomy": "home",
+    "species": "cml",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "home-chicken",
+    "label": "Home for Chicken",
+    "path": "/chicken/home",
+    "port": 3223,
+    "taxonomy": "home",
+    "species": "chk",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "home-sheep",
+    "label": "Home for Sheep",
+    "path": "/sheep/home",
+    "port": 3224,
+    "taxonomy": "home",
+    "species": "shp",
+    "hubs": ["front-office", "back-office"]
+  },
+  {
+    "id": "home-goat",
+    "label": "Home for Goat",
+    "path": "/goat/home",
+    "port": 3225,
+    "taxonomy": "home",
+    "species": "gt",
+    "hubs": ["front-office", "back-office"]
+  }
+]
