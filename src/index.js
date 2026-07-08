@@ -10,22 +10,42 @@ export const SPECIES = supportedSpecies
 
 export const MODULES = modules
 
+/**
+ * @param {string} taxonomyId
+ * @returns {object | null}
+ */
 export function getTaxonomyById(taxonomyId) {
   return TAXONOMIES.find(({ id }) => id === taxonomyId) ?? null
 }
 
+/**
+ * @param {string} speciesCode
+ * @returns {object | null}
+ */
 export function getSpeciesByCode(speciesCode) {
   return SPECIES.find(({ code }) => code === speciesCode) ?? null
 }
 
+/**
+ * @param {string} moduleId
+ * @returns {object | null}
+ */
 export function getModuleById(moduleId) {
   return MODULES.find(({ id }) => id === moduleId) ?? null
 }
 
+/**
+ * @param {string} hubId
+ * @returns {object[]}
+ */
 export function getModulesForHub(hubId) {
   return MODULES.filter(({ hubs }) => hubs.includes(hubId))
 }
 
+/**
+ * @param {object} module
+ * @returns {object | null}
+ */
 export function hydrateModuleMetadata(module) {
   if (!module) {
     return null
