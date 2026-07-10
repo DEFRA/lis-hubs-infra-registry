@@ -1,7 +1,7 @@
 {
-  "name": "@livestock/hub-registry",
+  "name": "@livestock/hubs-infra-registry",
   "version": "0.1.0",
-  "description": "Shared hub registry metadata for the livestock platform.",
+  "description": "Shared infra registry metadata for the livestock platform.",
   "type": "module",
   "main": "src/index.js",
   "engines": {
