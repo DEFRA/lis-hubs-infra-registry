@@ -6,6 +6,12 @@
     "summary": "Shared behaviour and wording for cattle journeys."
   },
   {
+    "id": "sheep",
+    "code": "shp",
+    "label": "Sheep",
+    "summary": "Shared behaviour and wording for sheep journeys."
+  },
+  {
     "id": "camlid",
     "code": "cml",
     "label": "Camlid",
@@ -16,12 +22,6 @@
     "code": "chk",
     "label": "Chicken",
     "summary": "Shared behaviour and wording for chicken journeys."
-  },
-  {
-    "id": "sheep",
-    "code": "shp",
-    "label": "Sheep",
-    "summary": "Shared behaviour and wording for sheep journeys."
   },
   {
     "id": "goat",
