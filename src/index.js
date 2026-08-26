@@ -35,6 +35,20 @@ export function getModuleById(moduleId) {
 }
 
 /**
+ * @param {string} moduleId
+ * @returns {string}
+ */
+export function getBasePathForModule(moduleId) {
+  const module = getModuleById(moduleId)
+
+  if (!module) {
+    throw new Error(`No module registered with id "${moduleId}"`)
+  }
+
+  return module.path
+}
+
+/**
  * @param {string} hubId
  * @returns {object[]}
  */

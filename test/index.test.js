@@ -6,6 +6,7 @@ import {
   MODULES,
   SPECIES,
   TAXONOMIES,
+  getBasePathForModule,
   getModuleById,
   getModulesForHub,
   getSpeciesByCode,
@@ -51,6 +52,17 @@ test('hydrates module labels without mutating its metadata', () => {
     speciesLabel: 'Cattle'
   })
   assert.equal('taxonomyLabel' in module, false)
+})
+
+test('returns the registered path for a module', () => {
+  assert.equal(getBasePathForModule('cattle-register'), '/cattle/register')
+})
+
+test('throws when looking up the base path for an unknown module', () => {
+  assert.throws(
+    () => getBasePathForModule('unknown'),
+    /No module registered with id "unknown"/
+  )
 })
 
 test('hydrates unknown labels with their original identifiers', () => {
