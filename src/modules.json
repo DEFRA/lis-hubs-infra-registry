@@ -28,7 +28,7 @@
   },
   {
     "id": "cattle-home",
-    "label": "Home for Cattle",
+    "label": "Cattle",
     "path": "/cattle",
     "port": 3221,
     "taxonomy": "home",
