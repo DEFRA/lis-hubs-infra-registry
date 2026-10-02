@@ -17,8 +17,7 @@
   {
     "id": "status",
     "label": "Status",
-    "summary": "Surface status information and lifecycle checks for livestock.",
-    "accessMode": "hub-service"
+    "summary": "Surface status information and lifecycle checks for livestock."
   },
   {
     "id": "home",
