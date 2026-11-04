@@ -51,22 +51,22 @@ species are cattle (`ctt`), sheep (`shp`), camlid (`cml`), chicken (`chk`) and g
 
 ### Lookups
 
-Each lookup returns `null` when nothing matches, except `getBasePathForModule`, which throws.
+Each lookup returns `null` when nothing matches, except `getMountsForModule` and `getMountPath`, which throw.
 
 ```js
 import {
   getTaxonomyById,
   getSpeciesByCode,
   getModuleById,
-  getBasePathForModule,
   getModulesForHub,
   hydrateModuleMetadata
 } from '@defra/lis-hubs-infra-registry'
 
 getTaxonomyById('move') // { id: 'move', label: 'Move', summary: '...' }
 getSpeciesByCode('ctt') // { id: 'cattle', code: 'ctt', label: 'Cattle', ... }
-getModuleById('cattle-move') // { id: 'cattle-move', path: '/cattle/move', port: 3204, ... }
-getBasePathForModule('cattle-move') // '/cattle/move'; throws if the module is not registered
+getModuleById('cattle-move') // { id: 'cattle-move', mounts: { holding: ..., assets: ... }, port: 3204, ... }
+getMountsForModule('cattle-home') // { holding: '/holdings/{cph*3}/cattle', animal: '/animals/cattle', assets: '/assets/cattle-home' }
+getMountPath('cattle-home', 'holding', { cph: '12/345/0001' }) // '/holdings/12/345/0001/cattle'
 getModulesForHub('front-office') // every module whose `hubs` includes 'front-office'
 
 hydrateModuleMetadata(getModuleById('cattle-move'))
@@ -78,15 +78,15 @@ hydrateModuleMetadata(getModuleById('cattle-move'))
 
 `src/modules.json` is an array. Each entry has these fields:
 
-| Field      | Type     | Meaning                                                                  |
-| ---------- | -------- | ------------------------------------------------------------------------ |
-| `id`       | string   | Module id. Matches the spoke's repo name without the `lis-apps-` prefix. |
-| `label`    | string   | Name shown to users.                                                     |
-| `path`     | string   | URL base path the hub serves the spoke on.                               |
-| `port`     | number   | Port the spoke listens on in local development and lis-dev.              |
-| `taxonomy` | string   | `id` of an entry in `src/supported-taxonomies.json`.                     |
-| `species`  | string   | `code` of an entry in `src/supported-species.json`.                      |
-| `hubs`     | string[] | Hubs that serve the module. Each must be one of `HUBS`.                  |
+| Field      | Type     | Meaning                                                                    |
+| ---------- | -------- | -------------------------------------------------------------------------- |
+| `id`       | string   | Module id. Matches the spoke's repo name without the `lis-apps-` prefix.   |
+| `label`    | string   | Name shown to users.                                                       |
+| `mounts`   | object   | URL patterns the hubs mount the spoke on, keyed by mount name (see below). |
+| `port`     | number   | Port the spoke listens on in local development and lis-dev.                |
+| `taxonomy` | string   | `id` of an entry in `src/supported-taxonomies.json`.                       |
+| `species`  | string   | `code` of an entry in `src/supported-species.json`.                        |
+| `hubs`     | string[] | Hubs that serve the module. Each must be one of `HUBS`.                    |
 
 For example:
 
@@ -94,7 +94,10 @@ For example:
 {
   "id": "cattle-move",
   "label": "Move for Cattle",
-  "path": "/cattle/move",
+  "mounts": {
+    "holding": "/holdings/{cph*3}/cattle/move",
+    "assets": "/assets/cattle-move"
+  },
   "port": 3204,
   "taxonomy": "move",
   "species": "ctt",
@@ -102,10 +105,27 @@ For example:
 }
 ```
 
+#### Mounts
+
+A mount is a URL pattern, in hapi parameter syntax, that the hubs serve the spoke on. The URL
+tree puts the holding first and the species beneath it, so every spoke is reachable from a
+holding, and a species' home spoke is also reachable from an animal:
+
+| Mount     | Pattern                                  | Served by        |
+| --------- | ---------------------------------------- | ---------------- |
+| `holding` | `/holdings/{cph*3}/<species>`            | the species home |
+| `holding` | `/holdings/{cph*3}/<species>/<taxonomy>` | each verb spoke  |
+| `animal`  | `/animals/<species>`                     | the species home |
+
+`<species>` is the species `id` (`cattle`), not its code. The spoke registers its routes with the
+full pattern (`/holdings/{cph*3}/cattle/animals`), the hub forwards the request path unchanged,
+and both build links with `getMountPath`. A spoke serves its built CSS and JavaScript at its
+`assets` mount, which has no parameters so the browser can cache them across holdings.
+
 ### Adding a module
 
 1. Create the spoke app. Name the repo `lis-apps-<id>`.
-2. Add the entry to `src/modules.json`. Use a unique `id`, `path` and `port`.
+2. Add the entry to `src/modules.json`. Use a unique `id`, `mounts` and `port`.
 3. If the species or taxonomy is new, add it to `src/supported-species.json` or
    `src/supported-taxonomies.json` first.
 4. Add a compose file for the spoke under `.tools/compose` in
@@ -114,8 +134,8 @@ For example:
 
 The hubs need no route changes. `createProxyPlugin` in
 [lis-hubs-infra-core](https://github.com/DEFRA/lis-hubs-infra-core) reads `getModulesForHub` and
-adds a proxy route for each module, forwarding to the service `lis-apps-<id>` on its `port` (in
-local development) at its `path`. Spokes also read their base path from here through
+adds a proxy route for each of the module's mounts, forwarding to the service `lis-apps-<id>` on its
+`port` (in local development) with the path unchanged. Spokes also read their mounts from here through
 [lis-infra-ui-services](https://github.com/DEFRA/lis-infra-ui-services).
 
 ## Prerequisites
