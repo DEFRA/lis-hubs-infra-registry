@@ -6,9 +6,10 @@ import {
   MODULES,
   SPECIES,
   TAXONOMIES,
-  getBasePathForModule,
   getModuleById,
   getModulesForHub,
+  getMountPath,
+  getMountsForModule,
   getSpeciesByCode,
   getTaxonomyById,
   hydrateModuleMetadata
@@ -54,15 +55,63 @@ test('hydrates module labels without mutating its metadata', () => {
   assert.equal('taxonomyLabel' in module, false)
 })
 
-test('returns the registered path for a module', () => {
-  assert.equal(getBasePathForModule('cattle-register'), '/cattle/register')
+test('returns the registered mounts for a module', () => {
+  assert.deepEqual(getMountsForModule('cattle-home'), {
+    holding: '/holdings/{cph*3}/cattle',
+    animal: '/animals/cattle',
+    assets: '/assets/cattle-home'
+  })
+  assert.deepEqual(getMountsForModule('cattle-register'), {
+    holding: '/holdings/{cph*3}/cattle/register',
+    assets: '/assets/cattle-register'
+  })
 })
 
-test('throws when looking up the base path for an unknown module', () => {
+test('throws when looking up the mounts for an unknown module', () => {
   assert.throws(
-    () => getBasePathForModule('unknown'),
+    () => getMountsForModule('unknown'),
     /No module registered with id "unknown"/
   )
+})
+
+test('fills a mount pattern with the given values', () => {
+  assert.equal(
+    getMountPath('cattle-home', 'holding', { cph: '12/345/0001' }),
+    '/holdings/12/345/0001/cattle'
+  )
+  assert.equal(
+    getMountPath('cattle-register', 'holding', { cph: '12/345/0001' }),
+    '/holdings/12/345/0001/cattle/register'
+  )
+})
+
+test('fills a mount pattern that has no parameters', () => {
+  assert.equal(getMountPath('cattle-home', 'animal'), '/animals/cattle')
+})
+
+test('throws when a mount pattern parameter has no value', () => {
+  assert.throws(
+    () => getMountPath('cattle-home', 'holding'),
+    /Mount "holding" of module "cattle-home" needs a value for "cph"/
+  )
+  assert.throws(
+    () => getMountPath('cattle-home', 'holding', { cph: '' }),
+    /needs a value for "cph"/
+  )
+})
+
+test('throws when a module has no mount with the given name', () => {
+  assert.throws(
+    () => getMountPath('cattle-register', 'animal'),
+    /Module "cattle-register" has no mount named "animal"/
+  )
+})
+
+test('every module declares a holding mount and its own assets mount', () => {
+  for (const module of MODULES) {
+    assert.ok(module.mounts.holding, `${module.id} has no holding mount`)
+    assert.equal(module.mounts.assets, `/assets/${module.id}`)
+  }
 })
 
 test('hydrates unknown labels with their original identifiers', () => {

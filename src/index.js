@@ -35,17 +35,52 @@ export function getModuleById(moduleId) {
 }
 
 /**
+ * The URL patterns the hubs mount a module on, keyed by mount name (for
+ * example `holding` and `animal`). Patterns use hapi parameter syntax.
+ *
  * @param {string} moduleId
- * @returns {string}
+ * @returns {Record<string, string>}
  */
-export function getBasePathForModule(moduleId) {
+export function getMountsForModule(moduleId) {
   const module = getModuleById(moduleId)
 
   if (!module) {
     throw new Error(`No module registered with id "${moduleId}"`)
   }
 
-  return module.path
+  return module.mounts
+}
+
+const mountParamPattern = /\{(\w+)(\*\d*)?}/g
+
+/**
+ * Fills a module's mount pattern with values, giving the concrete path the
+ * hub serves it on: `getMountPath('cattle-home', 'holding', { cph: '12/345/0001' })`
+ * is `/holdings/12/345/0001/cattle`.
+ *
+ * @param {string} moduleId
+ * @param {string} mountName
+ * @param {Record<string, string>} [params] a value for every parameter in the pattern
+ * @returns {string}
+ */
+export function getMountPath(moduleId, mountName, params = {}) {
+  const pattern = getMountsForModule(moduleId)[mountName]
+
+  if (!pattern) {
+    throw new Error(`Module "${moduleId}" has no mount named "${mountName}"`)
+  }
+
+  return pattern.replace(mountParamPattern, (_, name) => {
+    const value = params[name]
+
+    if (value === undefined || value === '') {
+      throw new Error(
+        `Mount "${mountName}" of module "${moduleId}" needs a value for "${name}"`
+      )
+    }
+
+    return value
+  })
 }
 
 /**

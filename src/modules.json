@@ -2,7 +2,10 @@
   {
     "id": "cattle-register",
     "label": "Register for Cattle",
-    "path": "/cattle/register",
+    "mounts": {
+      "holding": "/holdings/{cph*3}/cattle/register",
+      "assets": "/assets/cattle-register"
+    },
     "port": 3201,
     "taxonomy": "register",
     "species": "ctt",
@@ -11,7 +14,10 @@
   {
     "id": "cattle-move",
     "label": "Move for Cattle",
-    "path": "/cattle/move",
+    "mounts": {
+      "holding": "/holdings/{cph*3}/cattle/move",
+      "assets": "/assets/cattle-move"
+    },
     "port": 3204,
     "taxonomy": "move",
     "species": "ctt",
@@ -20,7 +26,10 @@
   {
     "id": "cattle-death",
     "label": "Death for Cattle",
-    "path": "/cattle/death",
+    "mounts": {
+      "holding": "/holdings/{cph*3}/cattle/death",
+      "assets": "/assets/cattle-death"
+    },
     "port": 3207,
     "taxonomy": "death",
     "species": "ctt",
@@ -29,7 +38,11 @@
   {
     "id": "cattle-home",
     "label": "Cattle",
-    "path": "/cattle",
+    "mounts": {
+      "holding": "/holdings/{cph*3}/cattle",
+      "animal": "/animals/cattle",
+      "assets": "/assets/cattle-home"
+    },
     "port": 3221,
     "taxonomy": "home",
     "species": "ctt",
